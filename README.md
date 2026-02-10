@@ -11,6 +11,7 @@
 ```bash
 mvn clean install
 mvn spring-boot:run
+En local correr docker run --name some-postgres -e POSTGRES_USER=julian -e POSTGRES_PASSWORD=Julian1169 -e POSTGRES_DB=baseDeDatos -p 5432:5432 -d postgres
 ```
 Probar con `curl`:
 ```bash
