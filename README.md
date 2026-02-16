@@ -150,9 +150,26 @@ springdoc.swagger-ui.path=/swagger-ui.html
 - Anota endpoints con `@Operation` y `@ApiResponse`.
 
 ### 5. Filtros de *Blueprints*
+
 - Implementa filtros:
+Para implementarlos con spring podemos apregar esto al archivo .properties
+Pero solo puede haber uno activo
+
+```bash
+#Punto 5
+spring.profiles.active=redundancy
+#spring.profiles.active=undersampling
+```
   - **RedundancyFilter**: elimina puntos duplicados consecutivos.  
-  - **UndersamplingFilter**: conserva 1 de cada 2 puntos.  
+  #### Prueba ejecutada con el comando curl desde bash
+
+  ![alt text](docs/img/redudancyFilter.png)
+  ---
+  - **UndersamplingFilter**: conserva 1 de cada 2 puntos. 
+   #### Prueba ejecutada con el comando curl desde bash y activando `#spring.profiles.active=undersampling`
+
+  ![alt text](docs/img/under.png)
+
 - Activa los filtros mediante perfiles de Spring (`redundancy`, `undersampling`).  
 
 ---
