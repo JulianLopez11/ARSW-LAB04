@@ -11,6 +11,8 @@
 ```bash
 mvn clean install
 mvn spring-boot:run
+En local correr docker compose up -d
+Para ver la base de datos `docker exec -it postgres-db psql -U julian -d baseDeDatos`
 ```
 Probar con `curl`:
 ```bash
@@ -57,7 +59,26 @@ src/main/java/edu/eci/arsw/blueprints
 ### 2. Migración a persistencia en PostgreSQL
 - Configura una base de datos PostgreSQL (puedes usar Docker).  
 - Implementa un nuevo repositorio `PostgresBlueprintPersistence` que reemplace la versión en memoria.  
-- Mantén el contrato de la interfaz `BlueprintPersistence`.  
+- Mantén el contrato de la interfaz `BlueprintPersistence`.
+
+#### Implementación PostgreSQL Evidencia Docker 
+Mediante El archivo docker-compose.yml se realiza la configuracion con la cual se va a ejectutar la aplicación,
+donde dentro esta la base de datos
+
+![alt text](docs/img/dockerPost.png)
+---
+
+#### Implementación PostgreSQL Evidencia PostMan
+Se realiza un post en http://localhost:8080/blueprints con una prueba el cual es exitoso
+
+![alt text](docs/img/postman.png)
+--- 
+
+#### Implementación PostgreSQL Evidencia Query
+Se hace un SELECT * FROM blueprints; y se puede observar que los resultados son correctos
+
+![alt text](docs/img/query.png)
+---
 
 ### 3. Buenas prácticas de API REST
 - Cambia el path base de los controladores a `/api/v1/blueprints`.  
@@ -81,8 +102,21 @@ src/main/java/edu/eci/arsw/blueprints
   ```
 
 ### 4. OpenAPI / Swagger
-- Configura `springdoc-openapi` en el proyecto.  
-- Expón documentación automática en `/swagger-ui.html`.  
+- Configura `springdoc-openapi` en el proyecto.
+En el application.properties en el directorio de resources podemos añadir las siguientes lineas para añadir la documentacion
+
+```java
+springdoc.api-docs.enabled=true
+springdoc.swagger-ui.enabled=true
+springdoc.swagger-ui.path=/swagger-ui.html
+```
+
+- Expón documentación automática en `/swagger-ui.html`. 
+
+```java
+springdoc.swagger-ui.path=/swagger-ui.html
+```
+
 - Anota endpoints con `@Operation` y `@ApiResponse`.
 
 ### 5. Filtros de *Blueprints*

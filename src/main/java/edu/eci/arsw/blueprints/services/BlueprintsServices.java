@@ -1,10 +1,11 @@
 package edu.eci.arsw.blueprints.services;
 
+import edu.eci.arsw.blueprints.exception.BlueprintNotFoundException;
+import edu.eci.arsw.blueprints.exception.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.filters.BlueprintsFilter;
 import edu.eci.arsw.blueprints.model.Blueprint;
-import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintPersistence;
-import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
+
 import org.springframework.stereotype.Service;
 
 import java.util.Set;

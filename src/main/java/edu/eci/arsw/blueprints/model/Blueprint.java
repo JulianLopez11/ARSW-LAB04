@@ -5,12 +5,35 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "blueprints")
 public class Blueprint {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false)   
     private String author;
+    @Column(nullable = false)
     private String name;
-    private final List<Point> points = new ArrayList<>();
+    @ElementCollection
+    @CollectionTable(name = "points",
+            joinColumns = @JoinColumn(name = "blueprint_id")
+    )
+    private List<Point> points = new ArrayList<>();
 
+    protected Blueprint() { 
+
+    }
     public Blueprint(String author, String name, List<Point> pts) {
         this.author = author;
         this.name = name;
