@@ -67,7 +67,7 @@ public class BlueprintsAPIController {
         try {
             Blueprint bp = new Blueprint(req.author(), req.name(), req.points());
             services.addNewBlueprint(bp);
-            return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(201, "Created OK", null));
+            return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse<>(201, "Created OK", bp));
         } catch (BlueprintPersistenceException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(400, e.getMessage(), null));
         }
