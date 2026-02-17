@@ -7,6 +7,18 @@
 - Java 21
 - Maven 3.9+
 
+### Instalación
+---
+
+1. Clonar el repositorio a la maquina local:
+   ```bash
+    git clone <URL_DEL_REPOSITORIO>
+    ```
+2. Navegar al directorio del repositorio
+    ```bash
+    cd <NOMBRE_DEL_PROYECTO>
+    ```
+
 ## ▶️ Ejecución del proyecto
 ```bash
 mvn clean install
@@ -36,6 +48,10 @@ Abrir en navegador:
 ![alt text](docs/img/swagger.png)
 ---
 
+### Implementacion @ApiResponse
+
+![alt text](docs/img/apiResponse.png)
+
 - OpenAPI JSON: [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)  
 ### Evidencia Api-docs
 
@@ -54,6 +70,11 @@ src/main/java/edu/eci/arsw/blueprints
   ├── filters/       # Filtros de procesamiento (Identity, Redundancy, Undersampling)
   ├── controllers/   # REST Controllers (BlueprintsAPIController)
   └── config/        # Configuración (Swagger/OpenAPI, etc.)
+  └── dto/           # Implementacion ApiResponseRecord
+  └── exception/     # Separa de la capa de persistencia las excepciones usadas por el sistema
+
+
+
 ```
 
 > Esta separación sigue el patrón **capas lógicas** (modelo, persistencia, servicios, controladores), facilitando la extensión hacia nuevas tecnologías o fuentes de datos.
@@ -64,8 +85,13 @@ src/main/java/edu/eci/arsw/blueprints
 
 ### 1. Familiarización con el código base
 - Revisa el paquete `model` con las clases `Blueprint` y `Point`.  
-- Entiende la capa `persistence` con `InMemoryBlueprintPersistence`.  
+Point usa record que es para modelar datos inmutables con una sintaxis muy concisa, eliminando código repetitivo
+
+- Entiende la capa `persistence` con `InMemoryBlueprintPersistence`.
+Lo que hace esta capa es guardar los blueprintsen un Map dentro de la aplicación, sin una base de datos `:(`
+
 - Analiza la capa `services` (`BlueprintsServices`) y el controlador `BlueprintsAPIController`.
+La capa services y los controladores tienen como principal funcion añadir blueprints, point y unos metodos get para consultar o conseguir todos los blueprints que existen, filtrarlos por autor y por ultimo por blueprint y por autor
 
 ### 2. Migración a persistencia en PostgreSQL
 - Configura una base de datos PostgreSQL (puedes usar Docker).  
@@ -163,7 +189,7 @@ spring.profiles.active=redundancy
   - **RedundancyFilter**: elimina puntos duplicados consecutivos.  
   #### Prueba ejecutada con el comando curl desde bash
 
-  ![alt text](docs/img/redudancyFilter.png)
+  ![alt text](docs/img/redudancy.png)
   ---
   - **UndersamplingFilter**: conserva 1 de cada 2 puntos. 
    #### Prueba ejecutada con el comando curl desde bash y activando `#spring.profiles.active=undersampling`
@@ -189,17 +215,6 @@ spring.profiles.active=redundancy
 
 ---
 
-## 📊 Criterios de evaluación
+## Autor
 
-| Criterio | Peso |
-|----------|------|
-| Diseño de API (versionamiento, DTOs, ApiResponse) | 25% |
-| Migración a PostgreSQL (repositorio y persistencia correcta) | 25% |
-| Uso correcto de códigos HTTP y control de errores | 20% |
-| Documentación con OpenAPI/Swagger + README | 15% |
-| Pruebas básicas (unitarias o de integración) | 15% |
-
-**Bonus**:  
-
-- Imagen de contenedor (`spring-boot:build-image`).  
-- Métricas con Actuator.  
+* **Julian Camilo Lopez Barrero** - [JulianLopez11](https://github.com/JulianLopez11)

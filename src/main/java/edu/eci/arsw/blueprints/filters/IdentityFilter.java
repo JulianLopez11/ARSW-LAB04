@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
  * This matches the baseline behavior of the reference lab before students implement custom filters.
  */
 @Component
+//Condicion para que se verifique que no esten activos al tiempo :)
 @Profile("!redundancy & !undersampling")
 public class IdentityFilter implements BlueprintsFilter {
     @Override
